@@ -1,6 +1,6 @@
 package com.twitter_backend.twitter_backend.models;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
@@ -35,10 +35,6 @@ public class Like {
     // Getters and setters
     public Long getId() {
         return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public Tweet getTweet() {

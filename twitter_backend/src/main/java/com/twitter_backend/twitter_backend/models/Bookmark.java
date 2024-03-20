@@ -1,6 +1,6 @@
 package com.twitter_backend.twitter_backend.models;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
@@ -10,7 +10,7 @@ public class Bookmark {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
-
+    
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "tweet_id", referencedColumnName = "id")
     private Tweet tweet;
@@ -35,10 +35,6 @@ public class Bookmark {
     // Getters and setters
     public Long getId() {
         return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public Tweet getTweet() {

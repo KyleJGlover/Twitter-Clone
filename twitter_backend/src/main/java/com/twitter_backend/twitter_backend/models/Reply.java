@@ -1,15 +1,18 @@
 package com.twitter_backend.twitter_backend.models;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "bookmarks")
+@Table(name = "replys")
 public class Reply {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
+
+    @Column(name = "text")
+    private String text;
 
     @Column(name = "reply_id")
     private Long replyId;
@@ -38,10 +41,6 @@ public class Reply {
     // Getters and setters
     public Long getId() {
         return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public Long getReplyId() {
@@ -74,5 +73,13 @@ public class Reply {
 
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
     }
 }

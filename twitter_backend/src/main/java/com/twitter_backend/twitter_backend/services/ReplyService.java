@@ -12,6 +12,9 @@ public class ReplyService {
     private ReplyRepository replyRepository;
 
     public Reply createReply(Reply reply) {
+        if (reply == null) {
+            throw new IllegalArgumentException("reply object cannot be null");
+        }
         return replyRepository.save(reply);
     }
 }

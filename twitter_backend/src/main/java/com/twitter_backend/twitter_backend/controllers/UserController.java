@@ -21,9 +21,13 @@ public class UserController {
 
     @PostMapping
     public ResponseEntity<UserDTO> createUser(@RequestBody UserDTO userDTO) {
+        // Map the DTO to the entity
         User user = userMapper.toEntity(userDTO);
+        // Create the hashtag using the service
         user = userService.createUser(user);
+        // Convert back to DTO for verfication
         UserDTO createdUserDTO = userMapper.toDTO(user);
+        // Return the created DTO in the response
         return new ResponseEntity<>(createdUserDTO, HttpStatus.CREATED);
     }
 }

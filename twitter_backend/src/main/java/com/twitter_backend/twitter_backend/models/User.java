@@ -1,6 +1,6 @@
 package com.twitter_backend.twitter_backend.models;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "users")
@@ -27,10 +27,6 @@ public class User {
     // Getters and setters
     public Long getId() {
         return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getUsername() {

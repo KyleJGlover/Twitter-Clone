@@ -21,9 +21,13 @@ public class LikeController {
 
     @PostMapping
     public ResponseEntity<LikeDTO> createLike(@RequestBody LikeDTO likeDTO) {
+        // Map the DTO to the entity
         Like like = likeMapper.toEntity(likeDTO);
+        // Create the hashtag using the service
         like = likeService.createLike(like);
+        // Convert back to DTO for verfication
         LikeDTO createdLikeDTO = likeMapper.toDTO(like);
+        // Return the created DTO in the response
         return new ResponseEntity<>(createdLikeDTO, HttpStatus.CREATED);
     }
 }

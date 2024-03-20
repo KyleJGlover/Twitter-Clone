@@ -13,6 +13,9 @@ public class UserService {
     private UserRepository userRepository;
 
     public User createUser(User user) {
+        if (user == null) {
+            throw new IllegalArgumentException("user object cannot be null");
+        }
         return userRepository.save(user);
     }
 }

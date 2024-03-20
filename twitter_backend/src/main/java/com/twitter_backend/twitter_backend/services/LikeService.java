@@ -12,6 +12,9 @@ public class LikeService {
     private LikeRepository likeRepository;
 
     public Like createLike(Like like) {
+        if (like == null) {
+            throw new IllegalArgumentException("like object cannot be null");
+        }
         return likeRepository.save(like);
     }
 }

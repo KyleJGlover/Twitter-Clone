@@ -14,6 +14,9 @@ public class TweetService {
 
     @Transactional
     public Tweet createTweet(Tweet tweet) {
+        if (tweet == null) {
+            throw new IllegalArgumentException("tweet object cannot be null");
+        }
         return tweetRepository.save(tweet);
     }
 }

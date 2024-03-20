@@ -1,49 +1,58 @@
 package com.twitter_backend.twitter_backend.services;
 
-import com.twitter_backend.twitter_backend.dto.HashtagDTO;
-import com.twitter_backend.twitter_backend.mappers.HashtagMapper;
 import com.twitter_backend.twitter_backend.models.Hashtag;
 import com.twitter_backend.twitter_backend.repositorys.HashtagRepository;
+
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class HashtagService {
 
-    private final HashtagRepository hashtagRepository;
-    private final HashtagMapper hashtagMapper;
+    private HashtagRepository hashtagRepository;
 
-    public HashtagService(HashtagRepository hashtagRepository, HashtagMapper hashtagMapper) {
-        this.hashtagRepository = hashtagRepository;
-        this.hashtagMapper = hashtagMapper;
-    }
-
-    public List<HashtagDTO> getAllHashtags() {
+    public List<Hashtag> getAllHashtags() {
         List<Hashtag> hashtags = hashtagRepository.findAll();
-        return hashtags.stream()
-                .map(hashtagMapper::hashtagToDTO)
-                .collect(Collectors.toList());
+        return hashtags;
     }
 
-    public HashtagDTO getHashtagById(Long id) {
-        Hashtag hashtag = hashtagRepository.findById(id).orElseThrow(() -> new RuntimeException("Hashtag not found"));
-        return hashtagMapper.hashtagToDTO(hashtag);
-    }
-
-    public HashtagDTO createHashtag(String name) {
+    public Hashtag createHashtag(Hashtag hashtag) {
+        if(!CheckIfValid(hashtag))
+            return hashtag;
         // Check if the hashtag already exists
-        Hashtag existingHashtag = hashtagRepository.findByName(name);
-        if (existingHashtag != null) {
-            throw new RuntimeException("Hashtag already exists");
-        }
+        Hashtag existingHashtag = hashtagRepository.findByName(hashtag.getName());
 
-        // Create a new hashtag
-        Hashtag newHashtag = new Hashtag(name);
-        Hashtag savedHashtag = hashtagRepository.save(newHashtag);
+        if(!CheckIfValid(existingHashtag))
+            return existingHashtag;
+
+        return hashtagRepository.save(hashtag);
+    }
+
+    public List<Hashtag> getHashtagsByTweetId(Long tweetId){
+        if(!CheckIfValid(tweetId))
+            return List.of();
+        return hashtagRepository.findByTweetId(tweetId);
+    }
+
+    public List<Hashtag> getHashtagsByUserId(Long userId){
+        if(!CheckIfValid(userId))
+            return List.of();
+        return hashtagRepository.findByTweetId(userId);
+    }
+
+    private Boolean CheckIfValid(Hashtag hashtag){
+        if (hashtag == null) {
+            return false;
+        }
         
-        // Map the saved hashtag to DTO and return
-        return hashtagMapper.hashtagToDTO(savedHashtag);
+        if (hashtag.getId()== null || hashtag.getName() == null) {
+            return false;
+        }
+        return true;
+    }
+
+    private Boolean CheckIfValid(Long id){
+        return id == null ? false: true;
     }
 }

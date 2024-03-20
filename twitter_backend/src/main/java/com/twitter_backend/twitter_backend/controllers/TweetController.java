@@ -21,9 +21,13 @@ public class TweetController {
 
     @PostMapping
     public ResponseEntity<TweetDTO> createTweet(@RequestBody TweetDTO tweetDTO) {
+        // Map the DTO to the entity
         Tweet tweet = tweetMapper.toEntity(tweetDTO);
+        // Create the hashtag using the service
         tweet = tweetService.createTweet(tweet);
+        // Convert back to DTO for verfication
         TweetDTO createdTweetDTO = tweetMapper.toDTO(tweet);
+        // Return the created DTO in the response
         return new ResponseEntity<>(createdTweetDTO, HttpStatus.CREATED);
     }
 }
