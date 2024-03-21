@@ -2,10 +2,15 @@ package com.twitter_backend.twitter_backend.dto;
 
 import java.time.LocalDateTime;
 
+import jakarta.validation.constraints.NotNull;
+
 public class ReplyDTO {
     private Long id;
+    @NotNull
     private String text;
+    @NotNull
     private Long userId;
+    @NotNull
     private Long tweetId;
     private Long replyId;
     private LocalDateTime createdAt;

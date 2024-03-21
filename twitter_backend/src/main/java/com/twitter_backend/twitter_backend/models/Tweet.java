@@ -1,8 +1,12 @@
 package com.twitter_backend.twitter_backend.models;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+
+import com.twitter_backend.twitter_backend.util.GlobalUtils;
 
 @Entity
 @Table(name = "tweets")
@@ -54,39 +58,26 @@ public class Tweet {
         return text;
     }
 
-    public void setText(String text) {
-        this.text = text;
-    }
-
     public User getAuthor() {
         return author;
-    }
-
-    public void setAuthor(User author) {
-        this.author = author;
     }
 
     public LocalDateTime getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
-
     public LocalDateTime getUpdatedAt() {
         return updatedAt;
-    }
-
-    public void setUpdatedAt(LocalDateTime updatedAt) {
-        this.updatedAt = updatedAt;
     }
 
     public Set<Hashtag> getHashtags() {
         return hashtags;
     }
 
-    public void setHashtags(Set<Hashtag> hashtags) {
-        this.hashtags = hashtags;
+    public void updateTweet(Tweet newTweet){
+        
+        if(this.text != newTweet.getText()){
+            this.text = newTweet.getText();
+        } 
     }
 }

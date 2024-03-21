@@ -2,9 +2,13 @@ package com.twitter_backend.twitter_backend.dto;
 
 import java.time.LocalDateTime;
 
+import jakarta.validation.constraints.NotNull;
+
 public class BookmarkDTO {
     private Long id;
+    @NotNull
     private Long userId;
+    @NotNull
     private Long tweetId;
     private LocalDateTime createdAt;
 

@@ -1,7 +1,10 @@
 package com.twitter_backend.twitter_backend.dto;
 
+import jakarta.validation.constraints.NotNull;
+
 public class HashtagDTO {
     private Long id;
+    @NotNull
     private String name;
 
     // Constructors

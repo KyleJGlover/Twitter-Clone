@@ -1,9 +1,13 @@
 package com.twitter_backend.twitter_backend.controllers;
 
 import com.twitter_backend.twitter_backend.dto.BookmarkDTO;
+import com.twitter_backend.twitter_backend.exceptions.ResourceNotFoundException;
 import com.twitter_backend.twitter_backend.mappers.BookmarkMapper;
 import com.twitter_backend.twitter_backend.models.Bookmark;
 import com.twitter_backend.twitter_backend.services.BookmarkService;
+
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotEmpty;
 
 import java.util.List;
 
@@ -23,7 +27,7 @@ public class BookmarkController {
     private BookmarkMapper bookmarkMapper;
 
     @PostMapping
-    public ResponseEntity<BookmarkDTO> createBookmark(@RequestBody BookmarkDTO bookmarkDTO) {
+    public ResponseEntity<BookmarkDTO> createBookmark(@Valid @RequestBody(required = true) BookmarkDTO bookmarkDTO) {
         // Map the DTO to the entity
         Bookmark bookmark = bookmarkMapper.toEntity(bookmarkDTO);
         // Create the bookmark using the service
@@ -35,7 +39,7 @@ public class BookmarkController {
     }
 
     @GetMapping("/bookmarks/tweet/{tweetId}")
-    public ResponseEntity<List<BookmarkDTO>> getBookmarksByTweet(@PathVariable Long tweetId) {
+    public ResponseEntity<List<BookmarkDTO>> getBookmarksByTweet(@NotEmpty @PathVariable(required = true) Long tweetId) {
         // Retrieve bookmarks associated with the provided tweet ID
         List<Bookmark> bookmarks = bookmarkService.getBookmarksByTweetId(tweetId);
         // Map the entities to DTOs
@@ -45,7 +49,7 @@ public class BookmarkController {
     }
 
     @GetMapping("/bookmarks/user/{userId}")
-    public ResponseEntity<List<BookmarkDTO>> getBookmarksByUser(@PathVariable Long userId) {
+    public ResponseEntity<List<BookmarkDTO>> getBookmarksByUser(@NotEmpty @PathVariable(required = true) Long userId) {
         // Retrieve bookmarks associated with the provided user ID
         List<Bookmark> bookmarks = bookmarkService.getBookmarksByUserId(userId);
         // Map the entities to DTOs

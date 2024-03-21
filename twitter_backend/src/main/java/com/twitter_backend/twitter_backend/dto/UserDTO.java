@@ -1,8 +1,12 @@
 package com.twitter_backend.twitter_backend.dto;
 
+import jakarta.validation.constraints.NotNull;
+
 public class UserDTO {
     private Long id;
+    @NotNull
     private String username;
+    @NotNull
     private String email;
 
     // Constructors
